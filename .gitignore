@@ -12,3 +12,9 @@ DfPkg/
 
 # Configuración local de conexión SQL
 Data/DFConnId.ini
+
+# Archivos temporales/caché de DataFlex
+*.cch
+
+# Logs de drivers
+*.log
