@@ -1,20 +1,9 @@
-# Archivos compilados
-Programs/
-
-# Configuración local del Studio
-IdeSrc/
-
-# Paquetes descargados/generados
-DfPkg/
-
-# Archivo temporal de bloqueo del workspace
-*.sws.lock
-
-# Configuración local de conexión SQL
-Data/DFConnId.ini
-
-# Archivos temporales/caché de DataFlex
-*.cch
-
-# Logs de drivers
-*.log
+Programs/ 
+IdeSrc/ 
+DfPkg/ 
+*.sws.lock 
+Data/DFConnId.ini 
+*.cch 
+*.log 
+*.dep 
+*.prn 
