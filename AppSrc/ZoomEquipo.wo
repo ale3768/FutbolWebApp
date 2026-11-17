@@ -7,6 +7,8 @@ Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
+Use cWebButton.pkg
+Use SelectLiga.wo
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
@@ -59,13 +61,26 @@ Object oZoomEquipo is a cWebView
             Set psLabel to "LigaID"
             Set pbPromptButton to True
 
-// ToDo: Fill in the from-child parent Select view object name for navigate forward
-//            WebRegisterPath ntNavigateForward oSelectView
+            WebRegisterPath ntNavigateForward oSelectLiga
 
             Procedure OnPrompt
                 Send NavigatePath
             End_Procedure
         End_Object 
+
+        Object oVerLiga is a cWebButton
+            Set psCaption to "Ver liga"
+            Set piColumnSpan to 3
+            WebRegisterPath ntNavigateForward oSelectLiga
+
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+
+            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+                Move True to NavigateData.bReadOnly
+            End_Procedure
+        End_Object
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
@@ -120,6 +135,7 @@ Object oZoomEquipo is a cWebView
         Get Server to hoDD
         Get GetNavigateData to NavigateData
         Get HasRecord of hoDD to bHasRecord
+        WebSet pbRender of oVerLiga to bHasRecord
 
         // let's hide all buttons and then Show the ones we want
         WebSet pbRender of oEditBtn to False

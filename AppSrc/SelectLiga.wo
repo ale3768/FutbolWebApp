@@ -86,7 +86,12 @@ Object oSelectLiga is a cWebView
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromChild)
-                    Send NavigateClose Self
+                    If (NavigateData.bReadOnly) Begin
+                        Send NavigateForward of oZoomLiga Self
+                    End
+                    Else Begin
+                        Send NavigateClose Self
+                    End
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromMain)
@@ -146,7 +151,8 @@ Object oSelectLiga is a cWebView
                 Case Break
 
             Case (NavigateData.eNavigateType = nfFromChild)
-                // If from child, this is a probably a parent lookup from a Zoom
+                WebSet pbRender of oNewButton to (not(NavigateData.bReadOnly))
+                WebSet pbRender of oDetailButton to (not(NavigateData.bReadOnly))
                 Case Break
 
             Case (NavigateData.eNavigateType = nfFromMain)
