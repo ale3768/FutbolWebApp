@@ -45,3 +45,18 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2026-11-26 14:23:05
+
+-- Sprint 4: añadir las cinco nacionalidades pendientes
+INSERT INTO football.codemast (`Type`, `Code`, `Description`)
+VALUES
+('NACIONAL', 'Brasileño', 'Brasileño'),
+('NACIONAL', 'Egipcio', 'Egipcio'),
+('NACIONAL', 'Esloveno', 'Esloveno'),
+('NACIONAL', 'Noruego', 'Noruego'),
+('NACIONAL', 'Mozambique', 'Mozambiqueño');
+
+-- Adaptar el dato existente al código de CodeMast
+UPDATE football.jugador
+SET Nacionalidad = 'Mozambique'
+WHERE ID = 25
+  AND Nacionalidad = 'Mozambiqueño';
