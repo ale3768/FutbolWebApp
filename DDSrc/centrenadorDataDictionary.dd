@@ -3,13 +3,33 @@
 Open entrenador
 Open equipo
 
+Object oNacionalidadVT is a CodeValidationTable
+    Set Type_Value to "NACIONAL"
+End_Object
+
 Class centrenadorDataDictionary is a DataDictionary
     
     Procedure Construct_Object
         Forward Send Construct_Object
         Set Main_File to entrenador.File_Number
+        
+        //Proteger clave primaria de entrenador 
+        Set Key_Field_State Field entrenador.ID to True
+        Set Protect_Key_State to True 
 
+        // Proteger nombre y apellido
+        Set Field_Option Field entrenador.Nombre DD_DisplayOnly to True
+        Set Field_Option Field entrenador.Apellido DD_DisplayOnly to True
+
+        // Campos obligatorios
+        Set Field_Option Field entrenador.Nombre DD_Required to True
+        Set Field_Option Field entrenador.Apellido DD_Required to True
+
+        Set Field_Value_Table Field entrenador.Nacionalidad to oNacionalidadVT
+        
         Set Add_Server_File to equipo.File_Number
+        // Permitir entrenadores sin equipo asignado
+        Set ParentNullAllowed equipo.File_Number to True
 
         Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
         Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
@@ -17,5 +37,13 @@ Class centrenadorDataDictionary is a DataDictionary
         Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
 
     End_Procedure
+    
+    // Guardar NULL cuando el entrenador no tiene equipo
+    Procedure OnSaveRecord
+    Forward Send OnSaveRecord
 
+    If (entrenador.EquipoID = 0) Begin
+        Set_Attribute DF_FIELD_IS_NULL of entrenador.File_Number (RefTable(entrenador.EquipoID)) to True
+    End
+End_Procedure
 End_Class

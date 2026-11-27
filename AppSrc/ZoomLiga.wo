@@ -9,6 +9,7 @@ Use cWebMenuItem.pkg
 Use cWebForm.pkg
 Use cWebList.pkg
 Use cWebColumn.pkg
+Use cWebButton.pkg
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
@@ -30,13 +31,32 @@ Object oZoomLiga is a cWebView
         Set Constrain_File to liga.File_Number
     End_Object
 
-    Set Main_DD To oliga_DD
-    Set Server  To oliga_DD
+    Set Main_DD to oliga_DD
+    Set Server  to oliga_DD
 
 
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
         WebSetResponsive piColumnCount rmMobile to 4
+        
+        Object oPruebaEditar is a cWebButton
+    Set psCaption to "Probar edición"
+    Set piColumnSpan to 3
+
+    Procedure OnClick
+        Send ChangeEditMode of oZoomLiga True
+    End_Procedure
+        End_Object
+        
+        Object oGuardarCambios is a cWebButton
+    Set psCaption to "Guardar cambios"
+    Set piColumnSpan to 3
+    Set piColumnIndex to 3
+
+    Procedure OnClick
+        Send Request_Save of oZoomLiga
+    End_Procedure
+    End_Object
 
         Object oligaID is a cWebForm
             Entry_Item liga.ID
@@ -192,5 +212,6 @@ Object oZoomLiga is a cWebView
         Send SetActionButtons
 
     End_Procedure
+     
 
 End_Object 

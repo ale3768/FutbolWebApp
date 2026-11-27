@@ -9,6 +9,7 @@ Use cWebMenuItem.pkg
 Use cWebForm.pkg
 Use cWebButton.pkg
 Use SelectPosicion.wo
+Use cWebCombo.pkg
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
@@ -49,6 +50,26 @@ Object oZoomJugador is a cWebView
             Set peLabelPosition to lpTop
             Set psLabel to "ID"
         End_Object 
+        
+        
+        Object oBotonEditar is a cWebButton
+            Set psCaption to "Editar jugador"
+            Set piColumnSpan to 3
+
+    Procedure OnClick
+        Send ChangeEditMode of oZoomJugador True
+    End_Procedure
+        End_Object
+        
+        Object oGuardarJugador is a cWebButton
+    Set psCaption to "Guardar jugador"
+    Set piColumnSpan to 3
+    Set piColumnIndex to 3
+
+    Procedure OnClick
+        Send Request_Save of oZoomJugador
+    End_Procedure
+End_Object
 
         Object ojugadorNombre is a cWebForm
             Entry_Item jugador.Nombre
@@ -66,7 +87,7 @@ Object oZoomJugador is a cWebView
             Set psLabel to "Apellido"
         End_Object 
 
-        Object ojugadorNacionalidad is a cWebForm
+        Object ojugadorNacionalidad is a cWebCombo
             Entry_Item jugador.Nacionalidad
             Set piColumnSpan to 10
             Set piColumnIndex to 0
